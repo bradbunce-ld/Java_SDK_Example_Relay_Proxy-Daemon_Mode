@@ -1,0 +1,37 @@
+
+plugins {
+    id "java"
+    id "application"
+}
+
+repositories {
+    mavenCentral()
+    // Before LaunchDarkly release artifacts get synced to Maven Central they are here along with snapshots:
+    maven { url "https://oss.sonatype.org/content/groups/public/" }
+}
+
+allprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+application {
+    mainClassName = "Hello"
+}
+
+ext.versions = [
+    "sdk": "5.+",
+    "slf4j": "1.7.22"
+]
+
+dependencies {
+    implementation "com.launchdarkly:launchdarkly-java-server-sdk:${versions.sdk}"
+
+    // Adding slf4j-simple enables the basic console logging implementation of SLF4J. Most real
+    // applications will use one of the other SLF4J adapters. See: http://www.slf4j.org/
+    implementation "org.slf4j:slf4j-simple:${versions.slf4j}"
+
+    // Addiing launchdarkly-java-server-sdk-redis-store
+    implementation "com.launchdarkly:launchdarkly-java-server-sdk-redis-store:1.0.0"
+
+}

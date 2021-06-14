@@ -16,6 +16,9 @@ public class Hello {
 
   // Set REDIS to the URI of the Redis persistent datastore.
   static final String REDIS = "YOUR-REDIS-URI";
+  
+  // Set REDIS_PREFIX to the prefix name of the cache for your environment.
+  static final String REDIS_PREFIX ="YOUR-REDIS-CACHE";
 
   private static void showMessage(String s) {
     System.out.println("*** " + s);
@@ -32,7 +35,7 @@ public class Hello {
     try {
       uri = new URI(REDIS);
       LDConfig config  = new LDConfig.Builder()
-        .dataStore(Components.persistentDataStore(Redis.dataStore().uri(URI.create(REDIS)).prefix("development")).cacheSeconds(30))
+        .dataStore(Components.persistentDataStore(Redis.dataStore().uri(URI.create(REDIS)).prefix(REDIS_PREFIX)).cacheSeconds(30))
       .build();
       System.out.println("URI parsed successfully!");
 

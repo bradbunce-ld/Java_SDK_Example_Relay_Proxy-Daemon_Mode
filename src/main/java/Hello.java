@@ -9,13 +9,16 @@ import java.net.URISyntaxException;
 public class Hello {
 
   // Set SDK_KEY to your LaunchDarkly SDK key.
-  static final String SDK_KEY = "YOUR-SDK-KEY";
+  static final String SDK_KEY = "sdk-7ab8ac35-bac9-4bc0-9d67-d7ab4d7acc7d";
 
   // Set FEATURE_FLAG_KEY to the feature flag key you want to evaluate.
-  static final String FEATURE_FLAG_KEY = "YOUR-FEATURE-FLAG-KEY";
+  static final String FEATURE_FLAG_KEY = "java-sdk-test-flag-1";
 
   // Set REDIS to the URI of the Redis persistent datastore.
-  static final String REDIS = "YOUR-REDIS-URI";
+  static final String REDIS = "redis://redis:6379";
+
+  // Set REDIS_PREFIX to the prefix name of the cache for your environment.
+  static final String REDIS_PREFIX ="development";
 
   private static void showMessage(String s) {
     System.out.println("*** " + s);
@@ -32,7 +35,7 @@ public class Hello {
     try {
       uri = new URI(REDIS);
       LDConfig config  = new LDConfig.Builder()
-        .dataStore(Components.persistentDataStore(Redis.dataStore().uri(URI.create(REDIS)).prefix("development")).cacheSeconds(30))
+        .dataStore(Components.persistentDataStore(Redis.dataStore().uri(URI.create(REDIS)).prefix(REDIS_PREFIX)).cacheSeconds(30))
       .build();
       System.out.println("URI parsed successfully!");
 
@@ -47,8 +50,17 @@ public class Hello {
     
     // Set up the user properties. This user should appear on your LaunchDarkly users dashboard
     // soon after you run the demo.
-    LDUser user = new LDUser.Builder("user-key")
-                            .name("Sandy")
+    LDUser user = new LDUser.Builder("671749")
+                            .name("Brad Bunce")
+                            .firstName("Brad")
+                            .lastName("Bunce")
+                            .email("bbunce@launchdarkly.com")
+                            .custom("Cell", "(919)802-8222")
+                            .custom("Company", "LaunchDarkly")
+                            .custom("Group", "SEA")
+                            .custom("Country", "US")
+                            .custom("State", "NC")
+                            .custom("City", "Apex")
                             .build();
 
     boolean flagValue = client.boolVariation(FEATURE_FLAG_KEY, user, false);

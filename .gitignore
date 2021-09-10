@@ -1,0 +1,4 @@
+# ignore hidden system files
+
+.DS_Store
+

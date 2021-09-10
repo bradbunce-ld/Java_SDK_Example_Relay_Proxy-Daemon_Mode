@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 public class Hello {
 
   // Set SDK_KEY to your LaunchDarkly SDK key.
-  static final String SDK_KEY = "YOUR SDK KEY";
+  static final String SDK_KEY = "YOUR SDK KE";
 
   // Set FEATURE_FLAG_KEY to the feature flag key you want to evaluate.
   static final String FEATURE_FLAG_KEY = "YOUR FLAG KEY";

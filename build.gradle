@@ -31,7 +31,4 @@ dependencies {
     // applications will use one of the other SLF4J adapters. See: http://www.slf4j.org/
     implementation "org.slf4j:slf4j-simple:${versions.slf4j}"
 
-    // Addiing launchdarkly-java-server-sdk-redis-store
-    implementation "com.launchdarkly:launchdarkly-java-server-sdk-redis-store:1.0.0"
-
 }

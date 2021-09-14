@@ -14,8 +14,11 @@ public class Hello {
   // Set FEATURE_FLAG_KEY to the feature flag key you want to evaluate.
   static final String FEATURE_FLAG_KEY = "YOUR FLAG KEY";
 
+  // Set RELAY_PROXY to the URI of the LaunchDarkly Relay Proxy.
+  static final String RELAY_PROXY ="YOUR RELAY PROXY URI";
+
   // Set REDIS to the URI of the Redis persistent datastore.
-  static final String REDIS = "YOUR RELAY PROXY URI";
+  static final String REDIS = "YOUR REDIS URI";
 
   // Set REDIS_PREFIX to the prefix name of the cache for your environment.
   static final String REDIS_PREFIX ="YOUR REDIS PREFIX";
@@ -33,10 +36,16 @@ public class Hello {
 
     URI uri;
     try {
-      uri = new URI(REDIS);
+      uri = new URI(RELAY_PROXY);
       LDConfig config  = new LDConfig.Builder()
-        .dataStore(Components.persistentDataStore(Redis.dataStore().uri(URI.create(REDIS)).prefix(REDIS_PREFIX)).cacheSeconds(30))
-      .build();
+        .events(Components.sendEvents().baseURI(uri)
+        )
+        .dataStore(Components.persistentDataStore(Redis.dataStore()
+          .uri(URI.create(REDIS))
+          .prefix(REDIS_PREFIX))
+          .cacheSeconds(30)
+        )
+        .build();
       System.out.println("URI parsed successfully!");
 
     LDClient client = new LDClient(SDK_KEY, config);
